@@ -5,7 +5,12 @@ import os
 
 
 #Paths das imagens processadas e que serão salvas 
-path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/08-30-00.jpg"
+#path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/08-30-00.jpg"
+#path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/09-02-00.jpg"
+#path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/11-24-00.jpg"
+#path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/11-31-00.jpg"
+path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/12-07-00.jpg"
+
 path_img_save = r"D:/VisaoComputacional/Trabalho/Modelos/ResultadoLimiarizacao"
 nome_original = os.path.splitext(os.path.basename(path_img_orig))[0]
 
@@ -18,8 +23,17 @@ img_blur = cv2.GaussianBlur(img, (5, 5), 0)
 #Binary - Branco acima do limiar e preto abaixo do limiar
 #limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
+#Binary Inverted - Preto acima do limiar e branco abaixo do limiar
+limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
 #Trunc - Limita os valores ao limiar, ou seja, valores acima do limiar são definidos como o próprio limiar e valores abaixo do limiar permanecem inalterados.
-limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_TRUNC + cv2.THRESH_OTSU)
+#limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_TRUNC + cv2.THRESH_OTSU)
+
+#ToZero - Mantém apenas valores acima do limiar, ou seja, valores abaixo do limiar são definidos como zero e valores acima do limiar permanecem inalterados.
+#limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_TOZERO + cv2.THRESH_OTSU)
+
+#ToZero Inverted - Mantém apenas valores abaixo do limiar, ou seja, valores acima do limiar são definidos como zero e valores abaixo do limiar permanecem inalterados.
+#limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_TOZERO_INV + cv2.THRESH_OTSU)
 
 #Limiarização adaptativa
 blsize = 3
@@ -62,6 +76,6 @@ cv2.imwrite(caminho_saida, comparacao)
 print(f"Imagem salva em:\n{caminho_saida}")
 
 # Exibe a imagem final:
-cv2.imshow("Comparacao:", comparacao)
-cv2.waitKey(0)  # Para a janela ficar parada
-cv2.destroyAllWindows()
+#cv2.imshow("Comparacao:", comparacao)
+#cv2.waitKey(0)  # Para a janela ficar parada
+#cv2.destroyAllWindows()
