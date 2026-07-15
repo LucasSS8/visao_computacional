@@ -5,8 +5,8 @@ import os
 
 
 #Paths das imagens processadas e que serão salvas 
-path_img_orig = r"D:/.../Dataset Clouds 1500/2021-12-01/img/11-31-00.jpg"
-path_img_save = r"D:/.../ResultadoLimiarizacao"
+path_img_orig = r"D:/VisaoComputacional/Trabalho/Dataset/Dataset Clouds 1500/2021-12-01/img/08-30-00.jpg"
+path_img_save = r"D:/VisaoComputacional/Trabalho/Modelos/ResultadoLimiarizacao"
 nome_original = os.path.splitext(os.path.basename(path_img_orig))[0]
 
 #Carregando a imagem e transformando em escala de cinza
@@ -15,7 +15,11 @@ img = cv2.cvtColor(img_orig, cv2.COLOR_BGR2GRAY)  # CARREGA A IMAGEM, REDIMENSIO
 img_blur = cv2.GaussianBlur(img, (5, 5), 0)
 
 #Limiarização de Otsu
-limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+#Binary - Branco acima do limiar e preto abaixo do limiar
+#limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+#Trunc - Limita os valores ao limiar, ou seja, valores acima do limiar são definidos como o próprio limiar e valores abaixo do limiar permanecem inalterados.
+limiar, img_bin = cv2.threshold(img_blur, 0, 255, cv2.THRESH_TRUNC + cv2.THRESH_OTSU)
 
 #Limiarização adaptativa
 blsize = 3
